@@ -43,11 +43,9 @@ export function Navcomp() {
                     Home
                 </Navbar.Link>
                 <Navbar.Link as={Link} href="#">
-                    About
+                    Boards
                 </Navbar.Link>
-                <Navbar.Link href="#">Services</Navbar.Link>
-                <Navbar.Link href="#">Pricing</Navbar.Link>
-                <Navbar.Link href="#">Contact</Navbar.Link>
+                <Navbar.Link href="#">Create</Navbar.Link>
             </Navbar.Collapse>
         </Navbar>
     );

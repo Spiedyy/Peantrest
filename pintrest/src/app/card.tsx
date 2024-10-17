@@ -7,7 +7,7 @@ export default function Cards({ data }: { data: APIResponse }) {
         <div className="p-8 column columns-5">
             {data.images.map((image, index) => (
                 <Card
-                    className="max-w-sm relative group mb-4"
+                    className="max-w-sm relative group mb-4 break-inside-avoid	"
                 >
                     <div className="relative group-hover:brightness-50 transition-all duration-300">
                         <img src={data.images[index].url} alt={data.images[index].id} className="w-full" />
