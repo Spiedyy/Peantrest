@@ -32,7 +32,7 @@ export function Navcomp() {
                 >
                     <Dropdown.Header>
                         <span className="block text-sm">{user?.name}</span>
-                        <span className="block truncate text-sm font-medium">name@flowbite.com</span>
+                        <span className="block truncate text-sm font-medium"></span>
                     </Dropdown.Header>
                     <Dropdown.Item>Dashboard</Dropdown.Item>
                     <Dropdown.Item>Settings</Dropdown.Item>
