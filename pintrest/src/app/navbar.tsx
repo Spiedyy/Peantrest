@@ -1,16 +1,23 @@
-
-"use client";
+"use client"
 
 import Link from "next/link";
 import { Navbar, Dropdown, Avatar, Button, Label, TextInput } from "flowbite-react";
-import { use, useEffect, useState } from "react";
-import { Prisma } from "@prisma/client";
-
-// const [user, setUser] = useState([]);
+import { useEffect, useState } from "react";
+import { User } from "../../lib/response";
+import { getStaticProps } from "./severside";
 
 export function Navcomp() {
+    const [user, setUser] = useState<User | null>(null);
+
+    useEffect(() => {
+        getStaticProps().then((res) => {
+            const users = res.data.users[0];
+            setUser(users);
+        });
+    }, []);
+
     return (
-        <Navbar fluid rounded>
+        <Navbar fluid rounded className="bg-neutral-950">
             <Navbar.Brand as={Link} href="#">
                 <img src="/icon.ico" className="mr-3 h-6 sm:h-9" alt="Flowbite React Logo" />
                 <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">Pinterest</span>
@@ -20,11 +27,11 @@ export function Navcomp() {
                     arrowIcon={false}
                     inline
                     label={
-                        <Avatar alt="User settings" img="https://flowbite.com/docs/images/people/profile-picture-5.jpg" rounded />
+                        <Avatar alt="User settings" img={user?.img} rounded />
                     }
                 >
                     <Dropdown.Header>
-                        <span className="block text-sm">Bonnie Green</span>
+                        <span className="block text-sm">{user?.name}</span>
                         <span className="block truncate text-sm font-medium">name@flowbite.com</span>
                     </Dropdown.Header>
                     <Dropdown.Item>Dashboard</Dropdown.Item>
@@ -47,7 +54,7 @@ export function Navcomp() {
                     Home
                 </Navbar.Link>
                 <Navbar.Link as={Link} href="#">
-                    Boards
+                    Saves
                 </Navbar.Link>
                 <Navbar.Link href="#">Create</Navbar.Link>
             </Navbar.Collapse>

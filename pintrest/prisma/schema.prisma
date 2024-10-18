@@ -14,15 +14,16 @@ datasource db {
 }
 
 model User {
-  id        String   @id @default(cuid())
+  id        Int      @id @default(autoincrement())
   name      String
+  img       String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
 
 model Img {
-  id        String   @id @default(cuid())
-  url       String
+  id        Int      @id @default(autoincrement())
+  img       String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
