@@ -3,6 +3,13 @@
 
 import Link from "next/link";
 import { Navbar, Dropdown, Avatar, Button, Label, TextInput } from "flowbite-react";
+import { useEffect, useState } from "react";
+
+const user = [user, setUser] = useState([]);
+
+
+
+
 
 export function Navcomp() {
     return (
