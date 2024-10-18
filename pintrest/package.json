@@ -9,7 +9,7 @@
     "lint": "next lint"
   },
   "prisma": {
-    "seed": "node --import=tsx prisma/seed.ts"
+    "seed": "ts-node prisma/seed.ts"
   },
   "dependencies": {
     "@prisma/client": "^5.21.1",
@@ -17,11 +17,7 @@
     "iron-session": "^8.0.3",
     "next": "14.2.15",
     "react": "^18",
-    "react-dom": "^18",
-    "tsx": "^4.19.1"
-  },
-  "prisma": {
-    "seed": "ts-node prisma/seed.ts"
+    "react-dom": "^18"
   },
   "devDependencies": {
     "@types/node": "^20.16.12",

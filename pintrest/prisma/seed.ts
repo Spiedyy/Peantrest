@@ -3,12 +3,12 @@ import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
 
 async function main() {
-        // await prisma.user.create({
-        //     data: {
-        //         name: 'Damian',
-        //         img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT_O86oFjR8kk8ZprcmqcEQfgooMkeGZQGC-A&s',
-        //     },
-        // });
+    await prisma.user.create({
+        data: {
+            name: 'Damian',
+            img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT_O86oFjR8kk8ZprcmqcEQfgooMkeGZQGC-A&s',
+        },
+    });
 
     const images = [
         { url: "https://i.pinimg.com/236x/9b/76/76/9b767690082070204e443b4523a881a6.jpg" },
@@ -39,9 +39,9 @@ async function main() {
         { url: "https://i.pinimg.com/236x/03/91/df/0391df440452f26d0548d26225de0498.jpg" },
     ];
 
-    await prisma.img.createMany({
-        data: images.map((image) => ({ url: image.url })),
-    });
+    // await prisma.img.createMany({
+    //     data: images.map((image) => ({ img: image.url })),
+    // });
 }
 
 
