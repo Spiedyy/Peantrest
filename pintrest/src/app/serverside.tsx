@@ -14,7 +14,7 @@ export async function getStaticProps() {
     return {
         data: {
             users,
-            images
+            images,
         }
     };
 }

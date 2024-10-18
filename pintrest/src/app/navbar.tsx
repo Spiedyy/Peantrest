@@ -3,13 +3,10 @@
 
 import Link from "next/link";
 import { Navbar, Dropdown, Avatar, Button, Label, TextInput } from "flowbite-react";
-import { useEffect, useState } from "react";
+import { use, useEffect, useState } from "react";
+import { Prisma } from "@prisma/client";
 
-const user = [user, setUser] = useState([]);
-
-
-
-
+// const [user, setUser] = useState([]);
 
 export function Navcomp() {
     return (

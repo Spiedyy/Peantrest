@@ -1,4 +1,4 @@
-interface User {
+export interface User {
     id: number;
     name: string;
     img: string;
@@ -6,9 +6,9 @@ interface User {
     updatedAt: Date;
   }
 
-interface Image {
+export interface Image {
     id: number;
-    url: string;
+    img: string;
     createdAt: Date;
     updatedAt: Date;
   }

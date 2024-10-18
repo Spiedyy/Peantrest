@@ -1,12 +1,11 @@
 import { Navcomp } from "./navbar";
-import Fetch from "./fetch";
-import Test from "./test";
+import { Cards } from "./card";
 
 export default function Home() {
   return (
     <>
     <Navcomp />
-    <Fetch />
+    <Cards />
     </>
   );
 }

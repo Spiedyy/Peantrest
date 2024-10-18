@@ -1,17 +1,14 @@
 import { PrismaClient } from '@prisma/client';
-// import { User } from '../lib/response';
-// import { updateSession } from '../actions/session';
-
 
 const prisma = new PrismaClient();
 
 async function main() {
-    await prisma.user.create({
-        data: {
-            name: 'Damian',
-            img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT_O86oFjR8kk8ZprcmqcEQfgooMkeGZQGC-A&s',
-        },
-    });
+        // await prisma.user.create({
+        //     data: {
+        //         name: 'Damian',
+        //         img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT_O86oFjR8kk8ZprcmqcEQfgooMkeGZQGC-A&s',
+        //     },
+        // });
 
     const images = [
         { url: "https://i.pinimg.com/236x/9b/76/76/9b767690082070204e443b4523a881a6.jpg" },
@@ -43,7 +40,7 @@ async function main() {
     ];
 
     await prisma.img.createMany({
-        data: images.map((image) => ({ img: image.url })),
+        data: images.map((image) => ({ url: image.url })),
     });
 }
 
