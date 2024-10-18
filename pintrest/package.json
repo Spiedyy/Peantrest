@@ -9,7 +9,7 @@
     "lint": "next lint"
   },
   "prisma": {
-    "seed": "ts-node prisma/seed.ts"
+    "seed": "node --import=tsx prisma/seed.ts"
   },
   "dependencies": {
     "@prisma/client": "^5.21.1",

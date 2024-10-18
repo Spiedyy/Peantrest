@@ -1,5 +1,3 @@
-import { SessionOptions } from "iron-session";
-
 export interface Image {
     id: number;
     img: string;

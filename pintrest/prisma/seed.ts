@@ -41,11 +41,10 @@ async function main() {
         { url: "https://i.pinimg.com/236x/03/91/df/0391df440452f26d0548d26225de0498.jpg" },
     ];
 
-    // await prisma.img.createMany({
-    //     data: images.map((image) => ({ img: image.url })),
-    // });
+    await prisma.img.createMany({
+        data: images.map((image) => ({ img: image.url })),
+    });
 }
-
 
 main()
     .then(async () => {
