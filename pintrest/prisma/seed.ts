@@ -1,4 +1,6 @@
 import { PrismaClient } from '@prisma/client';
+// import { updateSession } from '../actions/session';
+import { User } from '../lib/response';
 
 const prisma = new PrismaClient();
 
