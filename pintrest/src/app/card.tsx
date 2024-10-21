@@ -1,15 +1,17 @@
 "use client";
 import { Card } from "flowbite-react";
 import { useState, useEffect } from "react";
-import { Image } from "../../lib/response";
-import { getStaticProps } from "./severside";
+import { ImageInt } from "../../lib/response";
+import { getImages } from "./severside";
+import Image from 'next/image';
+
 
 
 export function Cards() {
-    const [images, setImages] = useState<Image[] | null>(null);
+    const [images, setImages] = useState<ImageInt[] | null>(null);
 
     useEffect(() => {
-        getStaticProps().then((res) => {
+        getImages().then((res) => {
             const images = res.data.images;
             setImages(images);
         });
@@ -23,7 +25,14 @@ export function Cards() {
                     key={index}
                 >
                     <div className="relative group-hover:brightness-50 transition-all duration-300">
-                        <img src={image.img} className="w-full rounded" alt={`Image ${index}`} />
+                        <Image
+                            loading="lazy"
+                            src={image.img}
+                            className="rounded"
+                            alt="Image"
+                            width={300}
+                            height={200}
+                        />
                     </div>
 
                     <div className="p-4 absolute top-2 right-2 z-20 opacity-0 group-hover:opacity-100 transition-opacity">

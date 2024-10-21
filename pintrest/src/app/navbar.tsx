@@ -1,16 +1,16 @@
 "use client"
 
 import Link from "next/link";
-import { Navbar, Dropdown, Avatar, Button, Label, TextInput } from "flowbite-react";
+import { Navbar, Dropdown, Avatar, TextInput } from "flowbite-react";
 import { useEffect, useState } from "react";
 import { User } from "../../lib/response";
-import { getStaticProps } from "./severside";
+import { getUser } from "./severside";
 
 export function Navcomp() {
     const [user, setUser] = useState<User | null>(null);
 
     useEffect(() => {
-        getStaticProps().then((res) => {
+        getUser().then((res) => {
             const users = res.data.users[0];
             setUser(users);
         });
@@ -32,11 +32,11 @@ export function Navcomp() {
                 >
                     <Dropdown.Header>
                         <span className="block text-sm">{user?.name}</span>
-                        <span className="block truncate text-sm font-medium">name@flowbite.com</span>
+                        <span className="block truncate text-sm font-medium"></span>
                     </Dropdown.Header>
-                    <Dropdown.Item>Dashboard</Dropdown.Item>
+                    <Dropdown.Item>Home</Dropdown.Item>
                     <Dropdown.Item>Settings</Dropdown.Item>
-                    <Dropdown.Item>Earnings</Dropdown.Item>
+                    <Dropdown.Item>Created</Dropdown.Item>
                     <Dropdown.Divider />
                     <Dropdown.Item>Sign out</Dropdown.Item>
                 </Dropdown>
