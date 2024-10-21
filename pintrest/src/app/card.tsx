@@ -13,7 +13,8 @@ export function Cards() {
     useEffect(() => {
         getImages().then((res) => {
             const images = res.data.images;
-            setImages(images);
+            const imagesWithId = images.map((image) => ({ ...image, id: image.img_id }));
+            setImages(imagesWithId);
         });
     }, []);
 
