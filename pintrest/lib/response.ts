@@ -1,4 +1,4 @@
-export interface Image {
+export interface ImageInt {
     id: number;
     img: string;
     createdAt: Date;

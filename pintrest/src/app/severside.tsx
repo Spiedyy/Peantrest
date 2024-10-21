@@ -6,14 +6,21 @@ const prisma = new PrismaClient();
 
 export async function main() { }
 
-export async function getStaticProps() {
+export async function getUser() {
     const users = await prisma.user.findMany();
-    const images = await prisma.img.findMany()
-
 
     return {
         data: {
-            users,
+            users
+        }
+    };
+}
+
+export async function getImages() {
+    const images = await prisma.img.findMany();
+
+    return {
+        data: {
             images
         }
     };
