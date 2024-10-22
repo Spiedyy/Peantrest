@@ -13,6 +13,18 @@ export interface ImageInt {
     updatedAt: Date;
   }
 
+  export interface BoardImg {
+    board_id: number;  // Foreign key from the Boards model
+    img_id: number;    // Foreign key from the Img model
+    img: ImageInt;     // The associated image object
+  }
+
+  export interface Boards{
+    board_id: number;
+    boardName: string;
+    images: BoardImg[];
+  }
+
   // export const sessionOptions: SessionOptions = {
   //   password: process.env.SESSION_SECRET!,
   //   cookieName: "user_session",

@@ -44,6 +44,27 @@ async function main() {
     await prisma.img.createMany({
         data: images.map((image) => ({ img: image.url })),
     });
+
+    await prisma.boards.create({
+        data: {
+            boardName: 'My board',
+        },
+    });
+
+    await prisma.boardImg.create({
+        data: {
+            board: {
+                connect: {
+                    board_id: 1,
+                },
+            },
+            img: {
+                connect: {
+                    img_id: 1,
+                },
+            },
+        },
+    });
 }
 
 main()

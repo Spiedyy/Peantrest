@@ -12,12 +12,13 @@ export function Navcomp() {
     useEffect(() => {
         getUser().then((res) => {
             const users = res.data.users[0];
-            setUser(users);
+            const userWithId = { ...users, id: users.user_id };
+            setUser(userWithId);
         });
     }, []);
 
     return (
-        <Navbar fluid rounded className="bg-neutral-950">
+        <Navbar fluid rounded className="bg-neutral-950 relative z-30">
             <Navbar.Brand as={Link} href="#">
                 <img src="/icon.ico" className="mr-3 h-6 sm:h-9" alt="Flowbite React Logo" />
                 <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">Pinterest</span>
@@ -29,14 +30,16 @@ export function Navcomp() {
                     label={
                         <Avatar alt="User settings" img={user?.img} rounded />
                     }
+                    className="relative z-30"
                 >
                     <Dropdown.Header>
                         <span className="block text-sm">{user?.name}</span>
                         <span className="block truncate text-sm font-medium"></span>
                     </Dropdown.Header>
-                    <Dropdown.Item>Home</Dropdown.Item>
                     <Dropdown.Item>Settings</Dropdown.Item>
-                    <Dropdown.Item>Created</Dropdown.Item>
+                    <Dropdown.Item>
+                        <Link href="/boards">Created</Link>
+                    </Dropdown.Item>
                     <Dropdown.Divider />
                     <Dropdown.Item>Sign out</Dropdown.Item>
                 </Dropdown>

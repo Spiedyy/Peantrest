@@ -14,7 +14,7 @@ datasource db {
 }
 
 model User {
-  id        Int      @id @default(autoincrement())
+  user_id   Int      @id @default(autoincrement())
   name      String
   img       String
   createdAt DateTime @default(now())
@@ -22,8 +22,26 @@ model User {
 }
 
 model Img {
-  id        Int      @id @default(autoincrement())
+  img_id    Int        @id @default(autoincrement())
   img       String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+  BoardImg  BoardImg[]
+}
+
+model Boards {
+  board_id  Int        @id @default(autoincrement())
+  boardName String
+  images    BoardImg[]
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+}
+
+model BoardImg {
+  board_id Int
+  img_id   Int
+  board    Boards @relation(fields: [board_id], references: [board_id])
+  img      Img    @relation(fields: [img_id], references: [img_id])
+
+  @@id([board_id, img_id])
 }
