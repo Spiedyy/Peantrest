@@ -5,4 +5,16 @@ const nextConfig = {
     },
 };
 
+// module.exports = {
+//     async redirects() {
+//         return [
+//             {
+//                 source: '/pintrest',
+//                 destination: '/boards',
+//                 permanent: true,
+//             },
+//         ];
+//     },
+// }
+
 export default nextConfig;

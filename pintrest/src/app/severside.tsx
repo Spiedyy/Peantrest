@@ -26,6 +26,16 @@ export async function getImages() {
     };
 }
 
+export async function getBoards() {
+    const boards = await prisma.boards.findMany();
+
+    return {
+        data: {
+            boards
+        }
+    }
+}
+
 main().then(async () => {
     await prisma.$disconnect();
 })

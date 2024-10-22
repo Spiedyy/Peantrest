@@ -5,8 +5,6 @@ import { ImageInt } from "../../lib/response";
 import { getImages } from "./severside";
 import Image from 'next/image';
 
-
-
 export function Cards() {
     const [images, setImages] = useState<ImageInt[] | null>(null);
 

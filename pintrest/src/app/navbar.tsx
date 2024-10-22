@@ -13,7 +13,6 @@ export function Navcomp() {
         getUser().then((res) => {
             const users = res.data.users[0];
             const userWithId = { ...users, id: users.user_id };
-            console.log(userWithId);
             setUser(userWithId);
         });
     }, []);
@@ -37,9 +36,10 @@ export function Navcomp() {
                         <span className="block text-sm">{user?.name}</span>
                         <span className="block truncate text-sm font-medium"></span>
                     </Dropdown.Header>
-                    <Dropdown.Item>Home</Dropdown.Item>
                     <Dropdown.Item>Settings</Dropdown.Item>
-                    <Dropdown.Item>Created</Dropdown.Item>
+                    <Dropdown.Item>
+                        <Link href="/boards">Created</Link>
+                    </Dropdown.Item>
                     <Dropdown.Divider />
                     <Dropdown.Item>Sign out</Dropdown.Item>
                 </Dropdown>
