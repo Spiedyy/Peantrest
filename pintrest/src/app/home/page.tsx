@@ -1,4 +1,4 @@
-import { Navcomp } from "./navbar";
+import { Navcomp } from "../navbar";
 import { Cards } from "./card";
 
 export default function Home() {

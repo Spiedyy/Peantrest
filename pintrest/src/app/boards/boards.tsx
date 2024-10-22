@@ -3,6 +3,7 @@ import { Card } from "flowbite-react";
 import { getBoards } from "../severside";
 import { useEffect, useState } from "react";
 import { Boards } from "../../../lib/response"
+import { log } from "console";
 
 export function Boardscomp() {
     const [boards, setBoards] = useState<Boards[] | null>(null);
@@ -16,6 +17,7 @@ export function Boardscomp() {
             setBoards(boards);
         });
     }, []);
+
 
     return (
         boards?.map((board) => (

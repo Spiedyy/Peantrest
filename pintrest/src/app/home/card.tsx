@@ -1,8 +1,8 @@
 "use client";
 import { Card } from "flowbite-react";
 import { useState, useEffect } from "react";
-import { ImageInt } from "../../lib/response";
-import { getImages } from "./severside";
+import { ImageInt } from "../../../lib/response";
+import { getImages } from "../severside";
 import Image from 'next/image';
 
 export function Cards() {
