@@ -14,15 +14,17 @@ export interface ImageInt {
   }
 
   export interface BoardImg {
-    board_id: number;  // Foreign key from the Boards model
-    img_id: number;    // Foreign key from the Img model
-    img: ImageInt;     // The associated image object
+    board_id: number;
+    img_id: number;
+    img: ImageInt;
   }
 
-  export interface Boards{
+  export interface Boards {
     board_id: number;
     boardName: string;
-    images: BoardImg[];
+    images: {
+      img: BoardImg;
+    }[];
   }
 
   // export const sessionOptions: SessionOptions = {

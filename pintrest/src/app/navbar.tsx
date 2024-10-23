@@ -2,9 +2,11 @@
 
 import Link from "next/link";
 import { Navbar, Dropdown, Avatar, TextInput } from "flowbite-react";
-import { useEffect, useState } from "react";
+import { use, useEffect, useState } from "react";
 import { User } from "../../lib/response";
 import { getUser } from "./severside";
+import { usePathname } from "next/navigation";
+
 
 export function Navcomp() {
     const [user, setUser] = useState<User | null>(null);
@@ -17,9 +19,11 @@ export function Navcomp() {
         });
     }, []);
 
+    const pathname = usePathname();
+
     return (
         <Navbar fluid rounded className="bg-neutral-950 relative z-30">
-            <Navbar.Brand as={Link} href="#">
+            <Navbar.Brand as={Link} href="/home">
                 <img src="/icon.ico" className="mr-3 h-6 sm:h-9" alt="Flowbite React Logo" />
                 <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">Pinterest</span>
             </Navbar.Brand>
@@ -37,9 +41,7 @@ export function Navcomp() {
                         <span className="block truncate text-sm font-medium"></span>
                     </Dropdown.Header>
                     <Dropdown.Item>Settings</Dropdown.Item>
-                    <Dropdown.Item>
-                        <Link href="/boards">Created</Link>
-                    </Dropdown.Item>
+                    <Dropdown.Item>Created</Dropdown.Item>
                     <Dropdown.Divider />
                     <Dropdown.Item>Sign out</Dropdown.Item>
                 </Dropdown>
@@ -53,13 +55,9 @@ export function Navcomp() {
                 </div>
             </form>
             <Navbar.Collapse>
-                <Navbar.Link href="#" active>
-                    Home
-                </Navbar.Link>
-                <Navbar.Link as={Link} href="#">
-                    Saves
-                </Navbar.Link>
-                <Navbar.Link href="#">Create</Navbar.Link>
+                <Navbar.Link as={Link} href="/home" active={pathname === "/home"}>Home</Navbar.Link>
+                <Navbar.Link as={Link} href="/boards" active={pathname === "/boards"}>Boards</Navbar.Link>
+                <Navbar.Link as={Link} href="#" active={pathname === "/create"}>Create</Navbar.Link>
             </Navbar.Collapse>
         </Navbar>
     );

@@ -1,9 +1,10 @@
 "use client";
 import { Card } from "flowbite-react";
 import { useState, useEffect } from "react";
-import { ImageInt } from "../../lib/response";
-import { getImages } from "./severside";
+import { ImageInt } from "../../../lib/response";
+import { getImages } from "../severside";
 import Image from 'next/image';
+import { Savebtn } from "../savebtn";
 
 export function Cards() {
     const [images, setImages] = useState<ImageInt[] | null>(null);
@@ -33,15 +34,7 @@ export function Cards() {
                             height={200}
                         />
                     </div>
-
-                    <div className="p-4 absolute top-2 right-2 z-20 opacity-0 group-hover:opacity-100 transition-opacity">
-                        <a
-                            href="#"
-                            className="rounded-lg bg-red-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800"
-                        >
-                            Save
-                        </a>
-                    </div>
+                    <Savebtn />
                 </Card>
             ))}
         </div>
