@@ -27,13 +27,28 @@ export async function getImages() {
 }
 
 export async function getBoards() {
-    const boards = await prisma.boards.findMany();
+    const boards = await prisma.boards.findMany({
+        select: {
+            board_id: true,
+            boardName: true,
+            images: {
+                select: {
+                    img: {
+                        select: {
+                            img_id: true,
+                            img: true,
+                            createdAt: true,
+                            updatedAt: true,
+                        },
+                    },
+                },
+            },
+            createdAt: true,
+            updatedAt: true,
+        },
+    });
 
-    return {
-        data: {
-            boards
-        }
-    }
+    return boards
 }
 
 main().then(async () => {
