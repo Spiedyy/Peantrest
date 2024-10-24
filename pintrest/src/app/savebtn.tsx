@@ -34,7 +34,7 @@ export function Savebtn() {
         setOpenModal(false);
     };
 
-    const modalelement = <Modal dismissible show={openModal} onClose={closeModal} className="relative group-hover:brightness-50 transition-all duration-300">
+    const modalelement = <Modal dismissible show={openModal} onClose={closeModal} className="bg-neutral-900">
         <Modal.Header>Save image to board</Modal.Header>
         <Modal.Body>
             <button>
@@ -64,14 +64,16 @@ export function Savebtn() {
             </button>
         </Modal.Body>
         <Modal.Footer>
-            <Button
-                className="rounded-lg bg-red-700 text-sm font-medium text-white hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800"
-                onClick={() => { closeModal(); }}>
+            <button
+                className="rounded-lg bg-red-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800"
+                onClick={() => closeModal()}
+            >
                 Save
-            </Button>
-            <Button color="gray" onClick={closeModal}>
+            </button>
+
+            <button onClick={closeModal} className="rounded-lg bg-neutral-600 px-5 py-2.5 text-sm font-medium text-white hover:bg-neutral-700 focus:outline-none focus:ring-4 focus:ring-red-300 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">
                 Back
-            </Button>
+            </button>
         </Modal.Footer>
     </Modal>;
 
@@ -84,7 +86,7 @@ export function Savebtn() {
                 Save
             </button>
 
-            <div className="group relative">
+            <div className="text-red-">
                 {modalelement}
             </div>
         </div>
