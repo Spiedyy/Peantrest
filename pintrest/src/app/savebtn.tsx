@@ -34,6 +34,47 @@ export function Savebtn() {
         setOpenModal(false);
     };
 
+    const modalelement = <Modal dismissible show={openModal} onClose={closeModal} className="relative group-hover:brightness-50 transition-all duration-300">
+        <Modal.Header>Save image to board</Modal.Header>
+        <Modal.Body>
+            <button>
+                <div className="space-y-6">
+                    <p className="text-base leading-relaxed text-gray-500 ">
+                        {boards?.map((board) => (
+                            <Card className="max-w-fit">
+                                <div key={board.board_id}>
+                                    <h5 className="text-2xl font-bold tracking-tight text-center text-white">
+                                        {board.boardName}
+                                    </h5>
+                                    <div className="image-gallery flex justify-center max-w-72">
+                                        {board.images.slice(0, 3).map((image) => (
+                                            <img
+                                                src={image.img.img}
+                                                alt={board.boardName}
+                                                className="w-full h-auto max-w-[70px] m-1"
+                                                key={image.img.img_id}
+                                            />
+                                        ))}
+                                    </div>
+                                </div>
+                            </Card>
+                        ))}
+                    </p>
+                </div>
+            </button>
+        </Modal.Body>
+        <Modal.Footer>
+            <Button
+                className="rounded-lg bg-red-700 text-sm font-medium text-white hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800"
+                onClick={() => { closeModal(); }}>
+                Save
+            </Button>
+            <Button color="gray" onClick={closeModal}>
+                Back
+            </Button>
+        </Modal.Footer>
+    </Modal>;
+
     return (
         <div className="p-4 absolute top-2 right-2 z-20 opacity-0 group-hover:opacity-100 transition-opacity">
             <button
@@ -43,44 +84,9 @@ export function Savebtn() {
                 Save
             </button>
 
-            <Modal dismissible show={openModal} onClose={closeModal}>
-                <Modal.Header>Save image to board</Modal.Header>
-                <Modal.Body>
-                    <div className="space-y-6">
-                        <p className="text-base leading-relaxed text-gray-500 ">
-                            {boards?.map((board) => (
-                                <Card className="max-w-fit">
-                                    <div key={board.board_id}>
-                                        <h5 className="text-2xl font-bold tracking-tight text-center text-white">
-                                            {board.boardName}
-                                        </h5>
-                                        <div className="image-gallery flex justify-center max-w-72">
-                                            {board.images.slice(0, 3).map((image) => (
-                                                <img
-                                                    src={image.img.img}
-                                                    alt={board.boardName}
-                                                    className="w-full h-auto max-w-[70px] m-1"
-                                                    key={image.img.img_id}
-                                                />
-                                            ))}
-                                        </div>
-                                    </div>
-                                </Card>
-                            ))}
-                        </p>
-                    </div>
-                </Modal.Body>
-                <Modal.Footer>
-                    <Button
-                        className="rounded-lg bg-red-700 text-sm font-medium text-white hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800"
-                        onClick={() => { closeModal(); }}>
-                        Save
-                    </Button>
-                    <Button color="gray" onClick={closeModal}>
-                        Back
-                    </Button>
-                </Modal.Footer>
-            </Modal>
+            <div className="group relative">
+                {modalelement}
+            </div>
         </div>
     );
 }
