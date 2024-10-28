@@ -60,11 +60,6 @@ async function main() {
         { url: "https://i.pinimg.com/236x/5a/82/f7/5a82f708c91465b42f2daa9037ce945c.jpg" },
         { url: "https://i.pinimg.com/236x/31/18/d9/3118d99817b767745a4becbae3b87c9b.jpg" },
         { url: "https://i.pinimg.com/236x/30/12/2a/30122a5b2ca52e2395a0a66b695e444f.jpg" },
-        { url: "https://i.pinimg.com/236x/23/f7/df/23f7df3a6c9b266a9273e4905ebbecf1.jpg" },
-        { url: "https://i.pinimg.com/236x/96/21/f6/9621f631853fe34434254b19eed646cc.jpg" },
-        { url: "https://i.pinimg.com/236x/16/8e/00/168e00abdcbd78712b85eda59cbbe244.jpg" },
-        { url: "https://i.pinimg.com/236x/64/10/83/6410836db788282ad4aa9a1565f6f010.jpg" },
-        { url: "https://i.pinimg.com/236x/12/b2/ac/12b2ac68c60b2145f7e64ea02745128f.jpg" },
     ];
 
     await prisma.img.createMany({

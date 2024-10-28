@@ -34,7 +34,7 @@ export function Modalcomp({ openModal, setOpenModal }) {
         dismissible
         show={openModal}
         onClose={closeModal}
-        className="bg-neutral-900"
+        className="bg-neutral-900 drop-shadow-xl"
       >
         {/* text must be diffrent color */}
         <div className="flex bg-neutral-900 border-neutral-800 border-b rounded-t-md p-4">
