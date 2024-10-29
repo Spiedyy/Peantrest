@@ -10,6 +10,7 @@ import React from "react";
 export function Cards() {
   const [images, setImages] = useState<ImageInt[] | null>(null);
   const [openModal, setOpenModal] = useState(false);
+  const [selectedImage, setSelectedImage] = useState<number | null>(null);
 
   useEffect(() => {
     getImages().then((res) => {
@@ -22,12 +23,22 @@ export function Cards() {
     });
   }, []);
 
+  const handleSave = (imageID: number) => {
+    setSelectedImage(imageID);
+    setOpenModal(true);
+  };
+
   return (
     <>
-      <Modalcomp openModal={openModal} setOpenModal={setOpenModal} />
+      <Modalcomp
+        openModal={openModal}
+        setOpenModal={setOpenModal}
+        selectedImage={selectedImage}
+        setSelectedImage={setSelectedImage}
+      />
       <div className="p-8 column columns-2 md:columns-5 xl:columns-7 bg-neutral-900">
         {images &&
-          images.map((image, index) => (
+          images.map((image) => (
             <div className="max-w-sm relative group mb-4 break-inside-avoid bg-neutral-900 border-none drop-shadow-2xl">
               <div className="relative group-hover:brightness-50 transition-all duration-300">
                 <Image
@@ -39,7 +50,7 @@ export function Cards() {
                   height={200}
                 />
               </div>
-              <Savebtn setOpenModal={setOpenModal} />
+              <Savebtn onClick={() => handleSave(image.id)} />
             </div>
           ))}
       </div>
