@@ -31,15 +31,19 @@ export function Boardscomp() {
             className="max-w-xs border-none shadow-lg rounded-md overflow-hidden"
             key={board.board_id}
           >
-            <div className="flex h-48 gap-[1px]">
+            <div className="flex h-48 gap-[1px] bg-neutral-800">
               <div className="flex-1">
                 <img
-                  src={board.images[0].img.img}
+                  src={
+                    board.images?.[0]?.img?.img ||
+                    "https://upload.wikimedia.org/wikipedia/commons/thumb/8/89/HD_transparent_picture.png/1200px-HD_transparent_picture.png"
+                  }
                   alt={board.boardName}
                   className="w-full h-full object-cover transition-all duration-300 group-hover:brightness-50"
                 />
               </div>
 
+              {/* set a height for the smaller images so images can not push out other images MAYBE */}
               <div className="flex flex-col gap-[1px] h-full w-1/3">
                 {board.images.slice(1, 3).map((image) => (
                   <div className="flex-1" key={image.img.img_id}>
@@ -57,7 +61,9 @@ export function Boardscomp() {
             <h5 className="text-xl font-semibold text-start text-white pt-2">
               {board.boardName}
             </h5>
-            <p className="text-sm text-neutral-300 mb-2">260 pins</p>
+            <p className="text-sm text-neutral-300 mb-2">
+              {board.images.length} pins
+            </p>
           </div>
         </div>
       ))}

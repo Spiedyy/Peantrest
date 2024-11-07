@@ -30,7 +30,7 @@ export default function RootLayout({
         <ThemeModeScript />
       </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-neutral-800`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-neutral-900`}
       >
         {children}
       </body>

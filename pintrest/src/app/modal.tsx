@@ -35,6 +35,7 @@ export function Modalcomp({
     setOpenModal(false);
   };
 
+  // add a create board board as the last board
   return (
     <div>
       <Modal
@@ -73,40 +74,55 @@ export function Modalcomp({
           </button>
         </div>
         <div className="p-4 flex bg-neutral-900">
-          <button>
-            <div className="space-y-6 h-96 overflow-hidden">
-              <div className="grid grid-cols-2 text-base leading-relaxed text-gray-500 gap-4 h-96 pb-4 overflow-auto scrollbar-hidden">
-                {boards?.map((board) => (
-                  <div
-                    className="bg-neutral-900 border-none drop-shadow-lg flex flex-col p-4 rounded hover:bg-neutral-800 h-52 focus:bg-neutral-800"
-                    tabIndex={0}
-                    key={board.board_id}
-                    onClick={() => setSelectedBoard(board.board_id)}
-                  >
-                    <div className="flex flex-col justify-start h-full">
-                      <h5 className="text-2xl font-bold tracking-tight text-center text-white mb-2">
-                        {board.boardName}
-                      </h5>
-                      <div className="image-gallery flex justify-center">
-                        {board.images.slice(0, 3).map((image) => (
+          <div className="grid grid-cols-2 text-base leading-relaxed text-gray-500 gap-4 h-96 pb-4 overflow-auto scrollbar-hidden">
+            {boards?.map((board) => (
+              <div>
+                <div
+                  className="border-none h-48 rounded-lg group transition-transform duration-300 hover:cursor-pointer"
+                  tabIndex={0}
+                  key={board.board_id}
+                  onClick={() => setSelectedBoard(board.board_id)}
+                >
+                  <div className="flex h-48 gap-[1px]">
+                    <div className="flex-1">
+                      <img
+                        src={
+                          board.images?.[0]?.img?.img ||
+                          "https://upload.wikimedia.org/wikipedia/commons/thumb/8/89/HD_transparent_picture.png/1200px-HD_transparent_picture.png"
+                        }
+                        alt={board.boardName}
+                        className="w-full h-full object-cover transition-transform duration-300 group-hover:brightness-50"
+                      />
+                    </div>
+
+                    <div className="flex flex-col gap-[1px] h-full w-1/3">
+                      {board.images.slice(1, 3).map((image) => (
+                        <div className="flex-1" key={image.img.img_id}>
                           <img
                             src={image.img.img}
                             alt={board.boardName}
-                            className="w-full h-28 max-w-[70px] m-1"
-                            key={image.img.img_id}
+                            className="w-full h-24 object-cover transition-transform duration-3600 group-hover:brightness-50"
                           />
-                        ))}
-                      </div>
+                        </div>
+                      ))}
                     </div>
                   </div>
-                ))}
+                </div>
+                <div>
+                  <h5 className="text-xl font-semibold text-start text-white pt-2">
+                    {board.boardName}
+                  </h5>
+                  <p className="text-sm text-neutral-300 mb-2">
+                    {board.images.length} pins
+                  </p>
+                </div>
               </div>
-            </div>
-          </button>
+            ))}
+          </div>
         </div>
-        <Modal.Footer className="bg-neutral-900 border-neutral-800">
+        <Modal.Footer className="bg-neutral-900 border-neutral-800 z-50">
           <button
-            className="rounded-lg bg-red-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800"
+            className="rounded-lg bg-red-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-red-800 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800"
             onClick={() => {
               if (selectedboard !== null) {
                 saveImageToBoard(selectedboard, selectedImage);
@@ -121,7 +137,7 @@ export function Modalcomp({
 
           <button
             onClick={closeModal}
-            className="rounded-lg bg-neutral-600 px-5 py-2.5 text-sm font-medium text-white hover:bg-neutral-700 focus:outline-none focus:ring-4 focus:ring-neutral-500 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800"
+            className="rounded-lg bg-neutral-600 px-5 py-2.5 text-sm font-medium text-white hover:bg-neutral-700 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800"
           >
             Back
           </button>
