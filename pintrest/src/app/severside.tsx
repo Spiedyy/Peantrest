@@ -51,20 +51,32 @@ export async function getBoards() {
   return boards;
 }
 
-// create a post request to save image to board
 export async function saveImageToBoard(board_id: number, img_id: number) {
-  const board = await prisma.boards.update({
+  const board = await prisma.boards.findUnique({
     where: { board_id },
-    data: {
+    select: {
       images: {
-        create: {
-          img_id,
+        select: {
+          img_id: true,
         },
       },
     },
   });
 
-  return board;
+  if (board) {
+    const board = await prisma.boards.update({
+      where: { board_id },
+      data: {
+        images: {
+          create: {
+            img_id,
+          },
+        },
+      },
+    });
+
+    return board;
+  }
 }
 
 main()

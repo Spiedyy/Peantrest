@@ -2,9 +2,11 @@
 import { getBoards } from "../severside";
 import { useEffect, useState } from "react";
 import { Boards } from "../../../lib/response";
+import { useRouter } from "next/navigation";
 
 export function Boardscomp() {
   const [boards, setBoards] = useState<Boards[] | null>(null);
+  const router = useRouter();
 
   useEffect(() => {
     getBoards().then((res) => {
@@ -26,7 +28,10 @@ export function Boardscomp() {
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6 p-8">
       {boards?.map((board) => (
-        <div className="relative rounded-md overflow-hidden group transition-all duration-300 hover:cursor-pointer">
+        <div
+          className="relative rounded-md overflow-hidden group transition-all duration-300 hover:cursor-pointer"
+          onClick={() => router.push(`/boardimg/${board.board_id}`)}
+        >
           <div
             className="max-w-xs border-none shadow-lg rounded-md overflow-hidden"
             key={board.board_id}
