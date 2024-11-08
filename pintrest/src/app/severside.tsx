@@ -51,7 +51,16 @@ export async function getBoards() {
   return boards;
 }
 
-// create a post request to save image to board
+export async function createBoard(boardName: string) {
+  const board = await prisma.boards.create({
+    data: {
+      boardName,
+    },
+  });
+
+  return board;
+}
+
 export async function saveImageToBoard(board_id: number, img_id: number) {
   const board = await prisma.boards.update({
     where: { board_id },
