@@ -1,6 +1,7 @@
 "use server";
 
 import { PrismaClient } from "@prisma/client";
+import { create } from "domain";
 
 const prisma = new PrismaClient();
 
@@ -51,7 +52,34 @@ export async function getBoards() {
   return boards;
 }
 
-export async function createBoard(boardName: string) {
+export async function getBoard(board_id: number) {
+  const board = await prisma.boards.findUnique({
+    // get the board with the board_id
+    where: { board_id },
+    select: {
+      board_id: true,
+      boardName: true,
+      images: {
+        select: {
+          img: {
+            select: {
+              img_id: true,
+              img: true,
+              createdAt: true,
+              updatedAt: true,
+            },
+          },
+        },
+      },
+      createdAt: true,
+      updatedAt: true,
+    },
+  });
+
+  return board;
+}
+
+export async function createboard(boardName: string) {
   const board = await prisma.boards.create({
     data: {
       boardName,
@@ -62,18 +90,31 @@ export async function createBoard(boardName: string) {
 }
 
 export async function saveImageToBoard(board_id: number, img_id: number) {
-  const board = await prisma.boards.update({
+  const board = await prisma.boards.findUnique({
     where: { board_id },
-    data: {
+    select: {
       images: {
-        create: {
-          img_id,
+        select: {
+          img_id: true,
         },
       },
     },
   });
 
-  return board;
+  if (board) {
+    const board = await prisma.boards.update({
+      where: { board_id },
+      data: {
+        images: {
+          create: {
+            img_id,
+          },
+        },
+      },
+    });
+
+    return board;
+  }
 }
 
 main()

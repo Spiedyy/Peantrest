@@ -2,9 +2,11 @@
 import { getBoards } from "../severside";
 import { useEffect, useState } from "react";
 import { Boards } from "../../../lib/response";
+import { useRouter } from "next/navigation";
 
 export function Boardscomp() {
   const [boards, setBoards] = useState<Boards[] | null>(null);
+  const router = useRouter();
 
   useEffect(() => {
     getBoards().then((res) => {
@@ -20,31 +22,59 @@ export function Boardscomp() {
       }));
 
       setBoards(boards);
+
     });
   }, []);
 
   return (
-    <div className="grid grid-cols-7 p-8 gap-4">
-      {boards?.map((board) => (
-        <div
-          className="max-w-72 bg-neutral-800 border-none shadow-lg rounded-md h-52 py-2"
-          key={board.board_id}
-        >
-          <h5 className="text-2xl font-bold tracking-tight text-center text-white">
-            {board.boardName}
-          </h5>
-          <div className="image-gallery flex justify-center max-w-72">
-            {board.images.slice(0, 3).map((image) => (
-              <img
-                src={image.img.img}
-                alt={board.boardName}
-                className="w-full h-auto max-w-[70px] m-1"
-                key={image.img.img_id}
-              />
-            ))}
+    <>
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6 p-8">
+        {boards?.map((board) => (
+          <div
+            className="relative rounded-md overflow-hidden group transition-all duration-300 hover:cursor-pointer"
+            onClick={() => router.push(`/boards/${board.board_id}`)}
+          >
+            <div
+              className="max-w-xs border-none shadow-lg rounded-md overflow-hidden"
+              key={board.board_id}
+            >
+              <div className="flex h-48 gap-[1px] bg-neutral-800">
+                <div className="flex-1">
+                  <img
+                    src={
+                      board.images?.[0]?.img?.img ||
+                      "https://upload.wikimedia.org/wikipedia/commons/thumb/8/89/HD_transparent_picture.png/1200px-HD_transparent_picture.png"
+                    }
+                    alt={board.boardName}
+                    className="w-full h-full object-cover transition-all duration-300 group-hover:brightness-50"
+                  />
+                </div>
+
+                {/* set a height for the smaller images so images can not push out other images MAYBE */}
+                <div className="flex flex-col gap-[1px] h-full w-1/3">
+                  {board.images.slice(1, 3).map((image) => (
+                    <div className="flex-1" key={image.img.img_id}>
+                      <img
+                        src={image.img.img}
+                        alt={board.boardName}
+                        className="w-full h-full object-cover transition-all duration-300 group-hover:brightness-50"
+                      />
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+            <div>
+              <h5 className="text-xl font-semibold text-start text-white pt-2">
+                {board.boardName}
+              </h5>
+              <p className="text-sm text-neutral-300 mb-2">
+                {board.images.length} pins
+              </p>
+            </div>
           </div>
-        </div>
-      ))}
-    </div>
+        ))}
+      </div>
+    </>
   );
 }
