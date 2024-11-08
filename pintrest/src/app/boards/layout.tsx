@@ -1,5 +1,5 @@
 export const metadata = {
-  title: 'Boards',
+  title: 'Boards - Peatrest',
   description: '',
 }
 
