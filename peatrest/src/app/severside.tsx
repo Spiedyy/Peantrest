@@ -54,7 +54,6 @@ export async function getBoards() {
 
 export async function getBoard(board_id: number) {
   const board = await prisma.boards.findUnique({
-    // get the board with the board_id
     where: { board_id },
     select: {
       board_id: true,
