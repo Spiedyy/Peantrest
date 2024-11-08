@@ -1,6 +1,7 @@
 "use server";
 
 import { PrismaClient } from "@prisma/client";
+import { create } from "domain";
 
 const prisma = new PrismaClient();
 
@@ -49,6 +50,43 @@ export async function getBoards() {
   });
 
   return boards;
+}
+
+export async function getBoard(board_id: number) {
+  const board = await prisma.boards.findUnique({
+    // get the board with the board_id
+    where: { board_id },
+    select: {
+      board_id: true,
+      boardName: true,
+      images: {
+        select: {
+          img: {
+            select: {
+              img_id: true,
+              img: true,
+              createdAt: true,
+              updatedAt: true,
+            },
+          },
+        },
+      },
+      createdAt: true,
+      updatedAt: true,
+    },
+  });
+
+  return board;
+}
+
+export async function createboard(boardName: string) {
+  const board = await prisma.boards.create({
+    data: {
+      boardName,
+    },
+  });
+
+  return board;
 }
 
 export async function saveImageToBoard(board_id: number, img_id: number) {

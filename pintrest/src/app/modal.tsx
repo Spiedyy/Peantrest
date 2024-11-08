@@ -48,7 +48,9 @@ export function Modalcomp({
   // add a create board board as the last board
   return (
     <>
-      {showNotification && <Savenotifacation boardName={AlertBoardName} />}
+      {showNotification && (
+        <Savenotifacation boardName={AlertBoardName} board_id={selectedboard} />
+      )}
       <div>
         <Modal
           dismissible
