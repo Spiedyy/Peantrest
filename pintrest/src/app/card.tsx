@@ -1,50 +1,59 @@
 "use client";
-import { Card } from "flowbite-react";
 import { useState, useEffect } from "react";
 import { ImageInt } from "../../lib/response";
 import { getImages } from "./severside";
-import Image from 'next/image';
+import Image from "next/image";
+import { Savebtn } from "./savebtn";
+import { Modalcomp } from "./modal";
+import React from "react";
 
 export function Cards() {
-    const [images, setImages] = useState<ImageInt[] | null>(null);
+  const [images, setImages] = useState<ImageInt[] | null>(null);
+  const [openModal, setOpenModal] = useState(false);
+  const [selectedImage, setSelectedImage] = useState<number | null>(null);
 
-    useEffect(() => {
-        getImages().then((res) => {
-            const images = res.data.images;
-            const imagesWithId = images.map((image) => ({ ...image, id: image.img_id }));
-            setImages(imagesWithId);
-        });
-    }, []);
+  useEffect(() => {
+    getImages().then((res) => {
+      const images = res.data.images;
+      const imagesWithId = images.map((image) => ({
+        ...image,
+        id: image.img_id,
+      }));
+      setImages(imagesWithId);
+    });
+  }, []);
 
-    return (
-        <div className="p-8 column columns-5 bg-neutral-900">
-            {images && images.map((image, index) => (
-                <Card
-                    className="max-w-sm relative group mb-4 break-inside-avoid bg-neutral-900 border-black"
-                    key={index}
-                >
-                    <div className="relative group-hover:brightness-50 transition-all duration-300">
-                        <Image
-                            loading="lazy"
-                            src={image.img}
-                            className="rounded"
-                            alt="Image"
-                            width={300}
-                            height={200}
-                        />
-                    </div>
+  const handleSave = (imageID: number) => {
+    setSelectedImage(imageID);
+    setOpenModal(true);
+  };
 
-                    <div className="p-4 absolute top-2 right-2 z-20 opacity-0 group-hover:opacity-100 transition-opacity">
-                        <a
-                            href="#"
-                            className="rounded-lg bg-red-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800"
-                        >
-                            Save
-                        </a>
-                    </div>
-                </Card>
-            ))}
-        </div>
-    );
-
+  return (
+    <>
+      <Modalcomp
+        openModal={openModal}
+        setOpenModal={setOpenModal}
+        selectedImage={selectedImage}
+        setSelectedImage={setSelectedImage}
+      />
+      <div className="p-8 column columns-2 md:columns-5 xl:columns-7">
+        {images &&
+          images.map((image) => (
+            <div className="max-w-sm relative group mb-4 break-inside-avoid border-none drop-shadow-2xl">
+              <div className="relative group-hover:brightness-50 transition-all duration-300">
+                <Image
+                  loading="lazy"
+                  src={image.img}
+                  className="rounded-xl"
+                  alt="Image"
+                  width={250}
+                  height={200}
+                />
+              </div>
+              <Savebtn onClick={() => handleSave(image.id)} />
+            </div>
+          ))}
+      </div>
+    </>
+  );
 }
