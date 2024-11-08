@@ -79,7 +79,7 @@ export async function getBoard(board_id: number) {
   return board;
 }
 
-export async function createboard(boardName: string) {
+export async function Createboard(boardName: string) {
   const board = await prisma.boards.create({
     data: {
       boardName,

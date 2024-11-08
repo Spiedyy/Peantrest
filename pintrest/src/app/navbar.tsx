@@ -31,7 +31,7 @@ export function Navcomp() {
       hidden: "invisible opacity-0",
       item: {
         container: "",
-        base: "flex w-full cursor-pointer items-center justify-start px-4 py-2 text-sm text-neutral-300 hover:bg-red-800 focus:bg-red-800 focus:outline-none dark:text-gray-200 dark:hover:bg-gray-600 dark:hover:text-white dark:focus:bg-gray-600 dark:focus:text-white",
+        base: "flex w-full cursor-pointer items-center justify-start px-4 py-2 text-sm text-neutral-300 hover:bg-green-800 focus:bg-green-800 focus:outline-none dark:text-gray-200 dark:hover:bg-gray-600 dark:hover:text-white dark:focus:bg-gray-600 dark:focus:text-white",
         icon: "mr-2 h-4 w-4",
       },
       style: {
@@ -63,7 +63,7 @@ export function Navcomp() {
           alt="Flowbite React Logo"
         />
         <span className="self-center whitespace-nowrap text-sm md:text-xl font-semibold dark:text-white">
-          Pinterest
+          Peatrest
         </span>
       </Navbar.Brand>
 

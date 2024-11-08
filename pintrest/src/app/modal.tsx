@@ -4,6 +4,7 @@ import { getBoards, saveImageToBoard, createBoard } from "./severside";
 import { Boards } from "../../lib/response";
 import "./scrollbar.css";
 import { Savenotifacation } from "./savenotification";
+import { Popovercomp } from "./popover";
 
 export function Modalcomp({
   openModal,
@@ -16,7 +17,7 @@ export function Modalcomp({
   const [showNotification, setShowNotification] = useState(false);
   const [AlertBoardName, setAlertBoardName] = useState("");
 
-  useEffect(() => {
+  const updateBoards = () => {
     getBoards().then((res) => {
       const boards = res.map((board: any) => ({
         ...board,
@@ -31,6 +32,10 @@ export function Modalcomp({
 
       setBoards(boards);
     });
+  };
+
+  useEffect(() => {
+    updateBoards();
   }, []);
 
   const closeModal = () => {
@@ -44,7 +49,11 @@ export function Modalcomp({
     }, 5000);
   };
 
-  // add a create board board as the last board
+  const [openCreateBoardModal, setOpenCreateBoardModal] = useState(false);
+
+  const openCreateModal = () => setOpenCreateBoardModal(true);
+  const closeCreateModal = () => setOpenCreateBoardModal(false);
+
   return (
     <>
       {showNotification && (
@@ -88,18 +97,46 @@ export function Modalcomp({
           </div>
           <div className="p-8 flex justify-center bg-neutral-900">
             <div className="grid grid-cols-2 w-full text-base leading-relaxed text-gray-500 gap-4 h-96 pb-4 overflow-auto scrollbar-hidden">
+              <div
+                className="border-none h-48 flex justify-center items-center bg-neutral-800 hover:bg-neutral-700 rounded-md cursor-pointer transition-colors"
+                onClick={() => {
+                  openCreateModal();
+                }}
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth="1.5"
+                  stroke="currentColor"
+                  className="w-12 h-12 text-neutral-300"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M12 6v12m6-6H6"
+                  />
+                </svg>
+              </div>
+
+              <Popovercomp
+                openModal={openCreateBoardModal}
+                setOpenModal={setOpenCreateBoardModal}
+                setBoards={setBoards}
+              />
+
               {boards?.map((board) => (
-                <div>
+                <div key={board.board_id}>
                   <div
                     className="border-none h-48 group transition-transform duration-300 hover:cursor-pointer"
                     tabIndex={0}
-                    key={board.board_id}
                     onClick={() => {
                       setSelectedBoard(board.board_id);
                       saveImageToBoard(board.board_id, selectedImage);
                       closeModal();
                       handleClick();
                       setAlertBoardName(board.boardName);
+                      updateBoards();
                     }}
                   >
                     <div className="flex h-48 gap-[1px]">
@@ -115,7 +152,7 @@ export function Modalcomp({
                       </div>
 
                       <div className="flex flex-col gap-[1px] h-full w-1/3">
-                        {board.images.slice(1, 3).map((image) => (
+                        {board.images?.slice(1, 3).map((image) => (
                           <div className="flex-1" key={image.img.img_id}>
                             <img
                               src={image.img.img}
@@ -132,7 +169,9 @@ export function Modalcomp({
                       {board.boardName}
                     </h5>
                     <p className="text-sm text-neutral-300 mb-2">
-                      {board.images.length} pins
+                      {board.images?.length > 0
+                        ? board.images?.length + " pins"
+                        : "0 pins"}
                     </p>
                   </div>
                 </div>
