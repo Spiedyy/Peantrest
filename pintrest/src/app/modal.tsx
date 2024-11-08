@@ -1,6 +1,6 @@
 import { Modal } from "flowbite-react";
 import { useEffect, useState } from "react";
-import { getBoards, saveImageToBoard } from "./severside";
+import { getBoards, saveImageToBoard, createBoard } from "./severside";
 import { Boards } from "../../lib/response";
 import "./scrollbar.css";
 import { Savenotifacation } from "./savenotification";
@@ -12,7 +12,6 @@ export function Modalcomp({
   setSelectedImage,
 }) {
   const [boards, setBoards] = useState<Boards[] | null>(null);
-
   const [selectedboard, setSelectedBoard] = useState<number | null>(null);
   const [showNotification, setShowNotification] = useState(false);
   const [AlertBoardName, setAlertBoardName] = useState("");
