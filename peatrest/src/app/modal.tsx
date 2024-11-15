@@ -1,6 +1,6 @@
 import { Modal } from "flowbite-react";
 import { useEffect, useState } from "react";
-import { getBoards, saveImageToBoard, createBoard } from "./severside";
+import { getBoards, saveImageToBoard } from "./severside";
 import { Boards } from "../../lib/response";
 import "./scrollbar.css";
 import { Savenotifacation } from "./savenotification";

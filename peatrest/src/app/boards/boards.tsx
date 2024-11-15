@@ -37,7 +37,7 @@ export function Boardscomp() {
                 key={board.board_id}
               >
                 <div className="flex justify-end pr-1">
-                  <BoardOptions board={board}/>
+                  <BoardOptions board={board} id={board.board_id} />
                 </div>
                 <div
                   className="flex h-48 gap-[1px] bg-neutral-800"

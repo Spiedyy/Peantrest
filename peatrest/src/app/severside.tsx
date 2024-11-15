@@ -116,6 +116,14 @@ export async function saveImageToBoard(board_id: number, img_id: number) {
   }
 }
 
+export async function deleteBoard(board_id: number) {
+  const board = await prisma.boards.delete({
+    where: { board_id },
+  });
+
+  return board;
+}
+
 main()
   .then(async () => {
     await prisma.$disconnect();
