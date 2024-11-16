@@ -2,12 +2,12 @@
 
 import { Button, Modal } from "flowbite-react";
 import { useEffect, useState } from "react";
+import { deleteBoard } from "./severside";
 
 export function Editmodal({ openEdit, closeEdit, board }) {
   const [openModal, setOpenModal] = useState(true);
 
   useEffect(() => {
-    console.log(board);
     setOpenModal(openEdit);
   }, [openEdit, board]);
 
@@ -53,17 +53,28 @@ export function Editmodal({ openEdit, closeEdit, board }) {
             </svg>
           </button>
         </div>
-        
+
         <div className="p-8 flex justify-center bg-neutral-900">
           <div className="">
-            <div className="">
-              <input
-                id="#"
-                type="#"
-                placeholder={board.boardName}
-                className="bg-neutral-900 placeholder-neutral-700 text-neutral-500 rounded border-b-2 border-neutral-800 focus:outline-none"
-              />
-            </div>
+            <input
+              id="#"
+              type="#"
+              placeholder={board.boardName}
+              className="bg-neutral-900 placeholder-neutral-700 text-neutral-500 rounded border-b-2 border-neutral-800 focus:outline-none"
+            />
+          </div>
+          <div>
+            <button
+              onClick={() => {
+                deleteBoard(board.board_id);
+                handleClose();
+              }}
+            >
+              <div>
+                <p className="font-bold text-red-800">Delete</p>
+                <p>your board including all pins with no recovery possible</p>
+              </div>
+            </button>
           </div>
         </div>
       </Modal>
