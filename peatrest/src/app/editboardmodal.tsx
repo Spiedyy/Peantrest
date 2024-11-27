@@ -4,7 +4,7 @@ import { Button, Modal } from "flowbite-react";
 import { useEffect, useState } from "react";
 import { deleteBoard } from "./severside";
 
-export function Editmodal({ openEdit, closeEdit, board }) {
+export function Editmodal({ openEdit, closeEdit, board, boards, setBoards }) {
   const [openModal, setOpenModal] = useState(true);
 
   useEffect(() => {
@@ -15,6 +15,17 @@ export function Editmodal({ openEdit, closeEdit, board }) {
     setOpenModal(false);
     closeEdit();
   };
+
+  const handleDelete = async () => {
+    console.log(boards.length);
+    const deletedBoard = await deleteBoard(board.board_id);
+    console.log(deletedBoard);
+
+    const newBoardsList = [...boards.filter((board) => board.board_id !== deletedBoard.board_id)];
+    console.log(newBoardsList.length);
+    
+    setBoards(newBoardsList);
+  }
 
   return (
     <>
@@ -66,7 +77,7 @@ export function Editmodal({ openEdit, closeEdit, board }) {
           <div>
             <button
               onClick={() => {
-                deleteBoard(board.board_id);
+                handleDelete();
                 handleClose();
               }}
             >

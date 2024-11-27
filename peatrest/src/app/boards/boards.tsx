@@ -9,7 +9,7 @@ export function Boardscomp() {
   const [boards, setBoards] = useState<Boards[] | null>(null);
   const router = useRouter();
 
-  useEffect(() => {
+  const getboards = () => {
     getBoards().then((res) => {
       const boards = res.map((board: any) => ({
         ...board,
@@ -24,6 +24,10 @@ export function Boardscomp() {
 
       setBoards(boards);
     });
+  };
+
+  useEffect(() => {
+    getboards();
   }, []);
 
   return (
@@ -37,7 +41,7 @@ export function Boardscomp() {
                 key={board.board_id}
               >
                 <div className="flex justify-end pr-1">
-                  <BoardOptions board={board} id={board.board_id} />
+                  <BoardOptions board={board} id={board.board_id} boards={boards} setBoards={setBoards} />
                 </div>
                 <div
                   className="flex h-48 gap-[1px] bg-neutral-800"

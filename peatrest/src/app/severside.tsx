@@ -2,6 +2,7 @@
 
 import { PrismaClient } from "@prisma/client";
 import { create } from "domain";
+import { Boards } from "../../lib/response";
 
 const prisma = new PrismaClient();
 
@@ -116,12 +117,15 @@ export async function saveImageToBoard(board_id: number, img_id: number) {
   }
 }
 
-export async function deleteBoard(board_id: number) {
+export async function deleteBoard(board_id: number): Promise<Boards> {
+  const boardImages = await prisma.boardImg.deleteMany({
+    where: { board_id },
+  });
   const board = await prisma.boards.delete({
     where: { board_id },
   });
 
-  return board;
+  return { board, boardImages };
 }
 
 main()
