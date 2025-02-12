@@ -131,12 +131,12 @@ export function Modalcomp({
                     className="border-none h-48 group transition-transform duration-300 hover:cursor-pointer"
                     tabIndex={0}
                     onClick={() => {
+                      updateBoards();
                       setSelectedBoard(board.board_id);
                       saveImageToBoard(board.board_id, selectedImage);
                       closeModal();
                       handleClick();
                       setAlertBoardName(board.boardName);
-                      updateBoards();
                     }}
                   >
                     <div className="flex h-48 gap-[1px]">
@@ -147,7 +147,7 @@ export function Modalcomp({
                             "https://upload.wikimedia.org/wikipedia/commons/thumb/8/89/HD_transparent_picture.png/1200px-HD_transparent_picture.png"
                           }
                           alt={board.boardName}
-                          className="w-full h-full object-cover transition-transform duration-300 group-hover:brightness-50"
+                          className="rounded-l-lg w-full h-full object-cover transition-transform duration-300 group-hover:brightness-50"
                         />
                       </div>
 
@@ -157,7 +157,7 @@ export function Modalcomp({
                             <img
                               src={image.img.img}
                               alt={board.boardName}
-                              className="w-full h-24 object-cover transition-transform duration-3600 group-hover:brightness-50"
+                              className="rounded-r-lg w-full h-24 object-cover transition-transform duration-3600 group-hover:brightness-50"
                             />
                           </div>
                         ))}

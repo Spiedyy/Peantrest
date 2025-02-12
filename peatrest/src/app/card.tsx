@@ -39,7 +39,10 @@ export function Cards() {
       <div className="p-8 column columns-2 md:columns-5 xl:columns-7">
         {images &&
           images.map((image) => (
-            <div className="max-w-sm relative group mb-4 break-inside-avoid border-none drop-shadow-2xl">
+            <div
+              key={image.id}
+              className="max-w-sm relative group mb-4 break-inside-avoid border-none drop-shadow-2xl"
+            >
               <div className="relative group-hover:brightness-50 transition-all duration-300">
                 <Image
                   loading="lazy"
