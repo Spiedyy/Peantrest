@@ -1,12 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 
 export default function Input(board) {
-    
+    const [name, setName] = useState(board.board.boardName || "");
+
     return (
         <StyledWrapper>
           <div className="input-container">
-            <input placeholder={board.board.boardName} className="input-field" type="text" />
+            <input onChange={(e) => {
+                setName(e.target.value);
+            }} placeholder={board.board.boardName} className="input-field" type="text" />
             <label htmlFor="input-field" className="input-label"></label>
             <span className="input-highlight" />
           </div>

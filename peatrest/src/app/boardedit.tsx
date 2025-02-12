@@ -1,8 +1,7 @@
 "use client";
 
 import { deleteBoard } from "./severside";
-import { useCallback, useEffect, useState } from "react";
-import { Modal } from "flowbite-react";
+import { useCallback, useState } from "react";
 import Input from "./inputfield";
 
 export function BoardOptions({ board, id, setBoards }) {
@@ -11,13 +10,9 @@ export function BoardOptions({ board, id, setBoards }) {
 
   const handleDelete = useCallback(async () => {
     await deleteBoard(id);
-    setBoards((prev) => prev.filter((board) => board.board_id !== id));
+    setBoards((prev: any) => prev.filter((board: any) => board.board_id !== id));
     setOpenModal(false);
   }, [id, setBoards]);
-
-  const handleInputChange = (e) => {
-    setNewName(e.target.value);
-  };
 
   return (
     <>
@@ -37,7 +32,6 @@ export function BoardOptions({ board, id, setBoards }) {
         </svg>
       </button>
 
-      {/* Native Modal */}
       <div
         className={`fixed inset-0 flex justify-center items-center bg-black bg-opacity-50 transition-all duration-300 ease-in-out ${
           openModal ? "opacity-100 z-50" : "opacity-0 pointer-events-none"
@@ -50,7 +44,7 @@ export function BoardOptions({ board, id, setBoards }) {
             </h2>
             <button
               onClick={() => setOpenModal(false)}
-              className="text-gray-400 hover:text-white"
+              className="text-red-600 hover:text-red-700" 
               aria-label="Close"
             >
               ✖
@@ -59,14 +53,12 @@ export function BoardOptions({ board, id, setBoards }) {
 
           <div>
             <Input board={board}></Input>
-
             <div className="flex justify-center">
               <button
                 className="bg-red-700 hover:bg-red-800 text-white rounded-lg p-4"
                 onClick={handleDelete}
               >
                 <h3 className="font-bold">Delete Board</h3>
-                <p>including all pins, irreversible action</p>
               </button>
             </div>
           </div>
