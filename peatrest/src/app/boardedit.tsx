@@ -4,15 +4,23 @@ import { deleteBoard } from "./severside";
 import { useCallback, useState } from "react";
 import Input from "./inputfield";
 
-export function BoardOptions({ board, id, setBoards }) {
+export function BoardOptions({ board, id, setBoards, setShowNotification, setDeleteBoard }) {
   const [openModal, setOpenModal] = useState(false);
   const [newName, setNewName] = useState(board.boardName || "");
 
-  const handleDelete = useCallback(async () => {
-    await deleteBoard(id);
-    setBoards((prev: any) => prev.filter((board: any) => board.board_id !== id));
-    setOpenModal(false);
-  }, [id, setBoards]);
+  const handleDelete = async () => {
+    try {
+      await deleteBoard(id);
+      setShowNotification(true);
+      setDeleteBoard(board.boardName);
+
+      setBoards((prev: any) =>
+        prev.filter((board: any) => board.board_id !== id)
+      );
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
     <>
@@ -44,7 +52,7 @@ export function BoardOptions({ board, id, setBoards }) {
             </h2>
             <button
               onClick={() => setOpenModal(false)}
-              className="text-red-600 hover:text-red-700" 
+              className="text-red-600 hover:text-red-700"
               aria-label="Close"
             >
               ✖
@@ -56,7 +64,9 @@ export function BoardOptions({ board, id, setBoards }) {
             <div className="flex justify-center">
               <button
                 className="bg-red-700 hover:bg-red-800 text-white rounded-lg p-4"
-                onClick={handleDelete}
+                onClick={() => {
+                  handleDelete();
+                }}
               >
                 <h3 className="font-bold">Delete Board</h3>
               </button>

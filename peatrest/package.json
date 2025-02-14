@@ -20,6 +20,7 @@
     "next": "^15.1.6",
     "react": "^18",
     "react-dom": "^18",
+    "react-toastify": "^11.0.3",
     "styled-components": "^6.1.15",
     "tsx": "^4.19.1"
   },

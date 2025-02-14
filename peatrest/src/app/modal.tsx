@@ -131,9 +131,9 @@ export function Modalcomp({
                     className="border-none h-48 group transition-transform duration-300 hover:cursor-pointer"
                     tabIndex={0}
                     onClick={() => {
-                      updateBoards();
                       setSelectedBoard(board.board_id);
                       saveImageToBoard(board.board_id, selectedImage);
+                      updateBoards();
                       closeModal();
                       handleClick();
                       setAlertBoardName(board.boardName);
