@@ -40,6 +40,7 @@ export function Modalcomp({
 
   const closeModal = () => {
     setOpenModal(false);
+    setOpenCreateBoardModal(false);
   };
 
   const handleClick = () => {

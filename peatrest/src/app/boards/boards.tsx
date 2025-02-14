@@ -5,11 +5,14 @@ import { Boards } from "../../../lib/response";
 import { useRouter } from "next/navigation";
 import { BoardOptions } from "../boardedit";
 import { DeleteNotification } from "../deleteNotif";
+import { ChangesNotification } from "../changesNotification";
 
 export function Boardscomp() {
   const [boards, setBoards] = useState<Boards[]>([]);
   const [showNotification, setShowNotification] = useState(false);
+  const [showChangesNotification, setShowChangesNotification] = useState(false);
   const [deleteBoard, setDeleteBoard] = useState("");
+  const [newBoardName, setNewBoardName] = useState("");
   const router = useRouter();
 
   const getboards = () => {
@@ -31,18 +34,19 @@ export function Boardscomp() {
 
   useEffect(() => {
     getboards();
-  }, []);
+  }, [newBoardName]);
 
-  if (showNotification) {
+  if (showNotification || showChangesNotification) {
     setTimeout(() => {
       setShowNotification(false);
+      setShowChangesNotification(false);
     }, 2500);
   }
-  
 
   return (
     <>
       {showNotification && <DeleteNotification boardName={deleteBoard} />}
+      {showChangesNotification && <ChangesNotification />}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6 p-8">
         {boards?.map((board) => (
           <div
@@ -56,7 +60,9 @@ export function Boardscomp() {
                   id={board.board_id}
                   setBoards={setBoards}
                   setShowNotification={setShowNotification}
+                  setChangesNotification={setShowChangesNotification}
                   setDeleteBoard={setDeleteBoard}
+                  setNewBoardName={setNewBoardName}
                 />
               </div>
               <div

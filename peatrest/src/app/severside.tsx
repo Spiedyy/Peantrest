@@ -1,7 +1,6 @@
 "use server";
 
 import { PrismaClient } from "@prisma/client";
-import { create } from "domain";
 import { Boards } from "../../lib/response";
 
 const prisma = new PrismaClient();
@@ -126,6 +125,18 @@ export async function deleteBoard(board_id: number): Promise<Boards> {
   });
 
   return { board, boardImages };
+}
+
+export async function changeBoardName(newBoardName: string, board_id: number) {
+  const board = await prisma.boards.update({
+    where: { board_id },
+    data: {
+      boardName: newBoardName,
+    },
+  });
+
+  return board;
+
 }
 
 main()

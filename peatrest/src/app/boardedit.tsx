@@ -3,10 +3,19 @@
 import { deleteBoard } from "./severside";
 import { useCallback, useState } from "react";
 import Input from "./inputfield";
+import { changeBoardName } from "./severside";
 
-export function BoardOptions({ board, id, setBoards, setShowNotification, setDeleteBoard }) {
+export function BoardOptions({
+  board,
+  id,
+  setBoards,
+  setShowNotification,
+  setChangesNotification,
+  setDeleteBoard,
+  setNewBoardName,
+}) {
   const [openModal, setOpenModal] = useState(false);
-  const [newName, setNewName] = useState(board.boardName || "");
+  const [newName, setNewName] = useState("");
 
   const handleDelete = async () => {
     try {
@@ -21,6 +30,16 @@ export function BoardOptions({ board, id, setBoards, setShowNotification, setDel
       console.error(error);
     }
   };
+
+  function handleChanges() {
+    if (newName !== "") {
+      changeBoardName(newName, id);
+      setOpenModal(false);
+      setNewBoardName(newName);
+      setNewName("");
+      setChangesNotification(true);
+    }
+  }
 
   return (
     <>
@@ -60,8 +79,20 @@ export function BoardOptions({ board, id, setBoards, setShowNotification, setDel
           </div>
 
           <div>
-            <Input board={board}></Input>
-            <div className="flex justify-center">
+            <Input
+              board={board}
+              setNewName={setNewName}
+              newName={newName}
+            ></Input>
+            <div className="flex justify-center gap-4">
+              <button
+                className="bg-green-700 hover:bg-green-800 text-white rounded-lg p-4"
+                onClick={() => {
+                  handleChanges();
+                }}
+              >
+                <h3 className="font-bold">Save changes</h3>
+              </button>
               <button
                 className="bg-red-700 hover:bg-red-800 text-white rounded-lg p-4"
                 onClick={() => {

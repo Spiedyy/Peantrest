@@ -1,22 +1,25 @@
-import React, { useState } from 'react';
-import styled from 'styled-components';
+import React, { useState } from "react";
+import styled from "styled-components";
 
-export default function Input(board) {
-    const [name, setName] = useState(board.board.boardName || "");
-
-    return (
-        <StyledWrapper>
-          <div className="input-container">
-            <input onChange={(e) => {
-                setName(e.target.value);
-            }} placeholder={board.board.boardName} className="input-field" type="text" />
-            <label htmlFor="input-field" className="input-label"></label>
-            <span className="input-highlight" />
-          </div>
-        </StyledWrapper>
-      );
+export default function Input({ board, setNewName, newName }) {
+  return (
+    <StyledWrapper>
+      <div className="input-container">
+        <input
+          value={newName}
+          onChange={(e) => {
+            setNewName(e.target.value);
+          }}
+          placeholder={board.boardName}
+          className="input-field"
+          type="text"
+        />
+        <label htmlFor="input-field" className="input-label"></label>
+        <span className="input-highlight" />
+      </div>
+    </StyledWrapper>
+  );
 }
-
 
 const StyledWrapper = styled.div`
   /* Input container */
@@ -68,4 +71,5 @@ const StyledWrapper = styled.div`
 
   .input-field:focus + .input-label + .input-highlight {
     width: 100%;
-  }`;
+  }
+`;
