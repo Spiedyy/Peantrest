@@ -153,15 +153,16 @@ export function Modalcomp({
                         selectedImage
                       );
 
-                      if (result !== "Image already exists in board") {
+                      if (result) {
                         updateBoards();
                         closeModal();
                         handleClick();
                         setAlertBoardName(board.boardName);
+                      } else {
+                        closeModal();
+                        handleErrorClick();
+                        setAlertBoardName(board.boardName);
                       }
-                      closeModal();
-                      handleErrorClick();
-                      setAlertBoardName(board.boardName);
                     }}
                   >
                     <div className="flex h-48 gap-[1px]">

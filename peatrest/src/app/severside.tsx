@@ -124,9 +124,7 @@ export async function saveImageToBoard(board_id: number, img_id: number) {
     });
     return board;
   }
-
-  const msg = "Image already exists in board";
-  return msg;
+  return false;
   
 }
 
