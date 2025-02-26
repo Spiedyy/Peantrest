@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { Boards } from "../../../lib/response";
 import { useRouter } from "next/navigation";
 import { BoardOptions } from "../boardedit";
-import { DeleteNotification } from "../deleteNotif";
+import { DeleteNotification } from "../DeleteBoard";
 import { ChangesNotification } from "../changesNotification";
 
 export function Boardscomp() {

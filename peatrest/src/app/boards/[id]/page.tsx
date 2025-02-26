@@ -4,9 +4,12 @@ import Image from "next/image";
 import { use, useEffect, useState } from "react";
 import { Boards } from "../../../../lib/response";
 import { Navcomp } from "@/app/navbar";
+import { DeleteBtn } from "@/app/DeleteBTN";
+import { DeleteImageNotification } from "@/app/DeleteImage";
 
 export default function board({ params }) {
   const [board, setBoard] = useState<Boards | null>(null);
+  const [showNotification, setShowNotification] = useState(false);
   const paramsPromise = use(params);
 
   function updateBoards() {
@@ -22,6 +25,7 @@ export default function board({ params }) {
   return (
     <>
       <Navcomp />
+      {showNotification && <DeleteImageNotification />}
       <h2 className="flex justify-center p-4 font-bold text-3xl">{board?.boardName}</h2>
       <div className="p-8 column columns-2 md:columns-5 xl:columns-7">
         {board?.images?.map((image) => (
@@ -36,6 +40,7 @@ export default function board({ params }) {
                 height={200}
               />
             </div>
+            <DeleteBtn boardid={board.board_id} imgid={image.img.img_id} updateBoards={updateBoards} setShowNotification={setShowNotification} />
           </div>
         ))}
       </div>

@@ -88,6 +88,17 @@ export async function Createboard(boardName: string) {
   return board;
 }
 
+export async function RemoveImageFromBoard(board_id: number, img_id: number) {
+  const deletedImage = await prisma.boardImg.deleteMany({
+    where: {
+      board_id,
+      img_id,
+    },
+  });
+
+  return deletedImage;
+}
+
 export async function saveImageToBoard(board_id: number, img_id: number) {
   const board = await prisma.boards.findUnique({
     where: { board_id },
