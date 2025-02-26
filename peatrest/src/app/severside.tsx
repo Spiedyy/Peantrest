@@ -100,7 +100,7 @@ export async function saveImageToBoard(board_id: number, img_id: number) {
     },
   });
 
-  if (board) {
+  if (!board?.images.some((image) => image.img_id === img_id)) {
     const board = await prisma.boards.update({
       where: { board_id },
       data: {
@@ -111,9 +111,12 @@ export async function saveImageToBoard(board_id: number, img_id: number) {
         },
       },
     });
-
     return board;
   }
+
+  const msg = "Image already exists in board";
+  return msg;
+  
 }
 
 export async function deleteBoard(board_id: number): Promise<Boards> {
@@ -136,7 +139,6 @@ export async function changeBoardName(newBoardName: string, board_id: number) {
   });
 
   return board;
-
 }
 
 main()

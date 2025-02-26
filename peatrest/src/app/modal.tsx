@@ -5,6 +5,7 @@ import { Boards } from "../../lib/response";
 import "./scrollbar.css";
 import { Savenotifacation } from "./savenotification";
 import { Popovercomp } from "./popover";
+import { SaveErrorNotifacation } from "./SaveErrorNotification";
 
 export function Modalcomp({
   openModal,
@@ -15,6 +16,7 @@ export function Modalcomp({
   const [boards, setBoards] = useState<Boards[] | null>(null);
   const [selectedboard, setSelectedBoard] = useState<number | null>(null);
   const [showNotification, setShowNotification] = useState(false);
+  const [showErrorNotification, setShowErrorNotification] = useState(false);
   const [AlertBoardName, setAlertBoardName] = useState("");
 
   const updateBoards = () => {
@@ -50,6 +52,13 @@ export function Modalcomp({
     }, 5000);
   };
 
+  const handleErrorClick = () => {
+    setShowErrorNotification(true);
+    setTimeout(() => {
+      setShowErrorNotification(false);
+    }, 5000);
+  };
+
   const [openCreateBoardModal, setOpenCreateBoardModal] = useState(false);
 
   const openCreateModal = () => setOpenCreateBoardModal(true);
@@ -59,6 +68,12 @@ export function Modalcomp({
     <>
       {showNotification && (
         <Savenotifacation boardName={AlertBoardName} board_id={selectedboard} />
+      )}
+      {showErrorNotification && (
+        <SaveErrorNotifacation
+          boardName={AlertBoardName}
+          board_id={selectedboard}
+        />
       )}
       <div>
         <Modal
@@ -131,12 +146,21 @@ export function Modalcomp({
                   <div
                     className="border-none h-48 group transition-transform duration-300 hover:cursor-pointer"
                     tabIndex={0}
-                    onClick={() => {
+                    onClick={async () => {
                       setSelectedBoard(board.board_id);
-                      saveImageToBoard(board.board_id, selectedImage);
-                      updateBoards();
+                      const result = await saveImageToBoard(
+                        board.board_id,
+                        selectedImage
+                      );
+
+                      if (result !== "Image already exists in board") {
+                        updateBoards();
+                        closeModal();
+                        handleClick();
+                        setAlertBoardName(board.boardName);
+                      }
                       closeModal();
-                      handleClick();
+                      handleErrorClick();
                       setAlertBoardName(board.boardName);
                     }}
                   >
